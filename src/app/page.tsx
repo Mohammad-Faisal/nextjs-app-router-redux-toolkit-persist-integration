@@ -6,7 +6,7 @@ import AuthViewer from "./auth-viewer";
 export default function Home() {
   return (
     <ReduxProvider>
-      <main className="w-full h-screen grid grid-cols-2 place-items-center">
+      <main className="w-full h-screen grid md:grid-cols-2 place-items-center">
         <AuthUpdater />
         <AuthViewer />
       </main>
