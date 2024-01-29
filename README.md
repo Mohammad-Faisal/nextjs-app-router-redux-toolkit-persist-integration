@@ -1,5 +1,7 @@
 # How to setup redux tooling with redux persist in NextJS
 
+![ScreenRecording2024-01-28at03 33 04-ezgif com-video-to-gif-converter](https://github.com/Mohammad-Faisal/nextjs-app-router-redux-toolkit-persist-integration/assets/22127944/fe283b99-8160-4d83-a8c4-6308397b73dd)
+
 ## Install dependencies
 
 ```sh
@@ -155,5 +157,5 @@ export default AuthUpdater;
 
 That's it. Now you can use redux tooling with redux persist in NextJS
 
-![ScreenRecording2024-01-28at03 33 04-ezgif com-video-to-gif-converter](https://github.com/Mohammad-Faisal/nextjs-app-router-redux-toolkit-persist-integration/assets/22127944/fe283b99-8160-4d83-a8c4-6308397b73dd)
+
 
