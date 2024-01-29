@@ -1,12 +1,12 @@
 # How to setup redux tooling with redux persist in NextJS
 
-Install two dependencies
+## Install dependencies
 
 ```sh
 yarn add @reduxjs/toolkit react-redux redux-persist
 ```
 
-Then create a slice
+## Create a slice
 
 ```ts
 import { createSlice } from "@reduxjs/toolkit";
@@ -34,7 +34,7 @@ export const { setAuthState } = authSlice.actions;
 export const authReducer = authSlice.reducer;
 ```
 
-Then create the store
+## Create the store
 
 ```ts
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
@@ -66,7 +66,7 @@ export const useAppDispatch = () => useDispatch<AppDispatch>();
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
 ```
 
-Then create the provider
+## Create the provider
 
 ```tsx
 import { Provider } from "react-redux";
@@ -103,7 +103,7 @@ export default function Home() {
 }
 ```
 
-Then access the store
+## Access the store
 
 ```tsx
 import React from "react";
@@ -122,7 +122,7 @@ const AuthViewer = () => {
 export default AuthViewer;
 ```
 
-Then update the store
+## Update the store
 
 ```tsx
 import React from "react";
