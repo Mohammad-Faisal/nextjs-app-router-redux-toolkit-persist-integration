@@ -42,8 +42,27 @@ export const authReducer = authSlice.reducer;
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { useDispatch, TypedUseSelectorHook, useSelector } from "react-redux";
 import { persistReducer } from "redux-persist";
-import storage from "redux-persist/lib/storage";
 import { authReducer } from "@/store/authSlice";
+import createWebStorage from "redux-persist/lib/storage/createWebStorage";
+
+const createNoopStorage = () => {
+  return {
+    getItem() {
+      return Promise.resolve(null);
+    },
+    setItem(_key: string, value: number) {
+      return Promise.resolve(value);
+    },
+    removeItem() {
+      return Promise.resolve();
+    },
+  };
+};
+
+const storage =
+  typeof window !== "undefined"
+    ? createWebStorage("local")
+    : createNoopStorage();
 
 const authPersistConfig = {
   key: "auth",
@@ -51,8 +70,10 @@ const authPersistConfig = {
   whitelist: ["authState"],
 };
 
+const persistedReducer = persistReducer(authPersistConfig, authReducer);
+
 const rootReducer = combineReducers({
-  auth: persistReducer(authPersistConfig, authReducer),
+  auth: persistedReducer,
 });
 
 export const store = configureStore({
@@ -71,6 +92,8 @@ export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
 ## Create the provider
 
 ```tsx
+"use client";
+
 import { Provider } from "react-redux";
 import { store } from "./index";
 import { persistStore } from "redux-persist";
@@ -88,19 +111,18 @@ export default function ReduxProvider({
 Then wrap the app with the provider
 
 ```tsx
-"use client";
-import ReduxProvider from "@/store/redux-provider";
 import AuthUpdater from "./auth-updater";
 import AuthViewer from "./auth-viewer";
 
-export default function Home() {
+export default async function Home() {
+
+  console.log("serverside rendering");
+
   return (
-    <ReduxProvider>
-      <main className="w-full h-screen grid md:grid-cols-2 place-items-center">
-        <AuthUpdater />
-        <AuthViewer />
-      </main>
-    </ReduxProvider>
+    <main className="w-full h-screen grid md:grid-cols-2 place-items-center">
+      <AuthUpdater />
+      <AuthViewer />
+    </main>
   );
 }
 ```
@@ -108,6 +130,8 @@ export default function Home() {
 ## Access the store
 
 ```tsx
+"use client";
+
 import React from "react";
 import { useAppSelector } from "@/store";
 
@@ -127,6 +151,8 @@ export default AuthViewer;
 ## Update the store
 
 ```tsx
+"use client";
+
 import React from "react";
 import { setAuthState } from "@/store/authSlice";
 import { useAppDispatch } from "@/store";

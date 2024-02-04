@@ -1,15 +1,14 @@
-"use client";
-import ReduxProvider from "@/store/redux-provider";
 import AuthUpdater from "./auth-updater";
 import AuthViewer from "./auth-viewer";
 
-export default function Home() {
+export default async function Home() {
+
+  console.log("serverside rendering");
+
   return (
-    <ReduxProvider>
-      <main className="w-full h-screen grid md:grid-cols-2 place-items-center">
-        <AuthUpdater />
-        <AuthViewer />
-      </main>
-    </ReduxProvider>
+    <main className="w-full h-screen grid md:grid-cols-2 place-items-center">
+      <AuthUpdater />
+      <AuthViewer />
+    </main>
   );
 }
