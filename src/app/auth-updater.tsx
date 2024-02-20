@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import { setAuthState } from "@/store/authSlice";
 import { useAppDispatch } from "@/store";
